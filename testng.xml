@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite">
+    <test verbose="2" preserve-order="true"
+          name="C:/Users/V Karthick/IdeaProjects/TestNG/src/test/java/org/twozo/page_test/SignInTest.java">
+        <classes>
+            <class name="org.twozo.page_test.SignInTest">
+                <methods>
+                    <include name="signInAsValidUser"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test verbose="2" preserve-order="true"
+          name="C:/Users/V Karthick/IdeaProjects/TestNG/src/test/java/org/twozo/page_test/SignUpTest.java">
+        <classes/>
+    </test>
+</suite>
