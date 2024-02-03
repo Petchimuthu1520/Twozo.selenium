@@ -1,38 +1,53 @@
 package org.twozo.page.SignIn;
 
-import org.openqa.selenium.By;
-import org.twozo.components.web.driver.service.web.WebAutomationDriver;
+import org.twozo.components.driver.service.WebAutomationDriver;
+import org.twozo.components.element.locator.ElementLocator;
+import org.twozo.components.element.service.WebPageElement;
+import org.twozo.components.element.locator.LocatorType;
+import org.twozo.page.HomePage;
 
+/**
+ * Page class representing the Sign In functionality.
+ */
 public class SignIn {
-    private final By fieldEmail;
-    private final By fieldPassword;
-    private final By checkBoxRememberMe;
-    private final By buttonSignIn;
-    private final By buttonForgotPassword;
-    private final By fieldForgottenPassword;
-    private final By buttonResetPassword;
-    private final By buttonSignUp;
-    private final WebAutomationDriver driver;
 
+    // WebPageElements representing the email field, password field, and sign-in button
+    private final WebPageElement fieldEmail;
+    private final WebPageElement fieldPassword;
+    private final WebPageElement buttonSignIn;
 
-    public SignIn(WebAutomationDriver webAutomationDriver) {
-        this.fieldEmail = By.name("email");
-        this.fieldPassword = By.name("password");
-        this.checkBoxRememberMe = By.xpath("//*[@type='checkbox']");
-        this.buttonSignIn = By.xpath("//*[text()='Sign In']");
-        this.buttonForgotPassword = By.xpath("//*[text()='Forgot Password?']");
-        this.fieldForgottenPassword = By.id(":r2:");
-        this.buttonResetPassword = By.xpath("//*[text()='Reset Password']");
-        this.buttonSignUp = By.xpath("//*[text()='Sign Up']");
-        this.driver = webAutomationDriver;
+    // ElementLocator for locating elements on the page
+    private final ElementLocator elementLocator;
 
+    /**
+     * Constructor for the SignIn class.
+     *
+     * @param webAutomationDriver The WebAutomationDriver instance used for interaction.
+     */
+    public SignIn(final WebAutomationDriver webAutomationDriver) {
+        // Initialize the ElementLocator with the WebAutomationDriver
+        elementLocator = ElementLocator.getInstance(webAutomationDriver);
+
+        // Locate email, password, and sign-in button elements
+        fieldEmail = elementLocator.getWebPageElement(LocatorType.NAME, "email");
+        fieldPassword = elementLocator.getWebPageElement(LocatorType.NAME, "password");
+        buttonSignIn = elementLocator.getWebPageElement(LocatorType.XPATH, "//*[text()='Sign In']");
     }
 
-    public SignIn signIn(final String emailId, final String password) {
-        driver.findElement(fieldEmail).sendKeys(emailId);
-        driver.findElement(fieldPassword).sendKeys(password);
-        driver.findElement(checkBoxRememberMe).click();
-        driver.findElement(buttonSignIn).click();
-        return this;
+    /**
+     * Sign in with the provided email and password.
+     *
+     * @param emailId  The email address used for signing in.
+     * @param password The password used for signing in.
+     * @return HomePage instance representing the landing page after signing in.
+     */
+    public HomePage signIn(final String emailId, final String password) {
+        // Enter email and password, then click on the sign-in button
+        fieldEmail.interact().sendKeys(emailId);
+        fieldPassword.interact().sendKeys(password);
+        buttonSignIn.interact().click();
+
+        // Return a new instance of the HomePage
+        return new HomePage(elementLocator);
     }
 }
