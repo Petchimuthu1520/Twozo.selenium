@@ -2,6 +2,7 @@ package org.twozo.components.utilities;
 
 import java.io.File;
 import java.io.FileInputStream;
+
 import java.util.Properties;
 
 /**
@@ -9,28 +10,18 @@ import java.util.Properties;
  */
 public final class PropertyFileReader {
 
-    // Get the current working directory
-    static String currentDirectory = System.getProperty("user.dir");
-
-    // Define the path to the resources directory
-    private static final String path = currentDirectory + "\\src\\main\\resources";
-
-    // Singleton instance of the PropertyFileReader
+    private static final String CURRENT_DIRECTORY = System.getProperty("user.dir");
+    private static final String PATH = CURRENT_DIRECTORY + "\\src\\main\\resources";
     private static PropertyFileReader propertyFileReader;
 
-    // Private constructor to restrict instantiation
     private PropertyFileReader() {
     }
 
-    /**
-     * Get the instance of PropertyFileReader using the singleton pattern.
-     *
-     * @return The singleton instance of PropertyFileReader.
-     */
     public static PropertyFileReader getInstance() {
         if (propertyFileReader == null) {
             propertyFileReader = new PropertyFileReader();
         }
+
         return propertyFileReader;
     }
 
@@ -41,16 +32,12 @@ public final class PropertyFileReader {
      */
     public Properties properties() {
         final Properties properties = new Properties();
-
-        // Create a File object representing the config.properties file
-        final File file = new File(path, "config.properties");
-
-        // Get the absolute path of the config.properties file
+        final File file = new File(PATH, "config.properties");
         final String filePath = file.getAbsolutePath();
 
         try (final FileInputStream fileInputStream = new FileInputStream(filePath)) {
-            // Load properties from the file
             properties.load(fileInputStream);
+
             return properties;
         } catch (Exception e) {
             e.printStackTrace();

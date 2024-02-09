@@ -1,7 +1,10 @@
 package org.twozo.components.driver.service.interactions;
 
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WindowType;
 
+import org.twozo.components.driver.impl.WebTargetLocatorImpl;
+import org.twozo.components.driver.service.AlertHandler;
 import org.twozo.components.driver.service.WebAutomationDriver;
 
 /**
@@ -13,6 +16,10 @@ import org.twozo.components.driver.service.WebAutomationDriver;
  * @version 1.0
  */
 public interface WebTargetLocator {
+
+    static WebTargetLocator getInstance(final WebDriver driver, final WebDriver.TargetLocator targetLocator) {
+        return WebTargetLocatorImpl.getInstance(driver, targetLocator);
+    }
 
     /**
      * <p>
@@ -39,7 +46,7 @@ public interface WebTargetLocator {
      * Switches to the browser alert.
      * </p>
      *
-     * @return A {@link WebAlert} representing the browser alert.
+     * @return A {@link AlertHandler} representing the browser alert.
      */
-    WebAlert alert();
+    AlertHandler alert();
 }

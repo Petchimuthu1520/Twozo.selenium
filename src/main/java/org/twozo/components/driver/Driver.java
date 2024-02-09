@@ -7,6 +7,10 @@ import org.twozo.components.driver.service.WebAutomationDriver;
  */
 public interface Driver {
 
+    static Driver getInstance() {
+        return DriverImpl.getInstance();
+    }
+
     /**
      * Gets an instance of WebAutomationDriver.
      *

@@ -1,4 +1,8 @@
-package org.twozo.components.driver.service.interactions;
+package org.twozo.components.page;
+
+import org.openqa.selenium.WebDriver;
+
+import org.twozo.components.driver.impl.PageInformationProviderImpl;
 
 /**
  * <p>
@@ -8,7 +12,11 @@ package org.twozo.components.driver.service.interactions;
  * @author petchimuthu1520
  * @version 1.0
  */
-public interface Information {
+public interface PageInformationProvider {
+
+    public static PageInformationProvider getInstance(final WebDriver driver) {
+        return PageInformationProviderImpl.getInstance(driver);
+    }
 
     /**
      * <p>

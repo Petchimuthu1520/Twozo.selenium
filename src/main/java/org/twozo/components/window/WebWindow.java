@@ -1,4 +1,8 @@
-package org.twozo.components.driver.service.interactions;
+package org.twozo.components.window;
+
+import org.openqa.selenium.WebDriver;
+
+import org.twozo.components.driver.impl.WebWindowImpl;
 
 /**
  * <p>
@@ -9,6 +13,10 @@ package org.twozo.components.driver.service.interactions;
  * @version 1.0
  */
 public interface WebWindow {
+
+    static WebWindow getInstance(final WebDriver.Window window) {
+        return WebWindowImpl.getInstance(window);
+    }
 
     /**
      * <p>

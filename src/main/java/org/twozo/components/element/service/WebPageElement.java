@@ -2,7 +2,7 @@ package org.twozo.components.element.service;
 
 import org.twozo.components.element.finders.ElementFinder;
 
-public interface WebPageElement extends ElementFinder {
+public interface WebPageElement {
 
     /**
      * Returns an ElementFinder specific to the context of this WebPageElement.
@@ -19,9 +19,9 @@ public interface WebPageElement extends ElementFinder {
     Interactions interact();
 
     /**
-     * Returns an Information instance for retrieving information about this WebPageElement.
+     * Returns an PageInformationProvider instance for retrieving information about this WebPageElement.
      *
-     * @return An Information instance for getting information about this element.
+     * @return An PageInformationProvider instance for getting information about this element.
      */
     Information inform();
 }

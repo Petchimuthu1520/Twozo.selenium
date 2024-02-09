@@ -2,27 +2,32 @@ package org.twozo.components.driver.impl;
 
 import org.openqa.selenium.WebDriver;
 
-import org.twozo.components.driver.service.interactions.Handler;
+import org.twozo.components.window.WindowInfoProvider;
 
 import java.util.Set;
 
 /**
- * Implementation of the Handler interface providing methods to handle browser window interactions.
+ * Implementation of the WindowInfoProvider interface providing methods to handle browser window interactions.
  *
  * @version 1.0
  * @author petchimuthu1520
  */
-class DriverHandlerImpl implements Handler {
+public class WindowInfoProviderImpl implements WindowInfoProvider {
 
+    private static WindowInfoProviderImpl windowInfoProvider;
     private final WebDriver driver;
 
-    /**
-     * Constructs a {@link DriverHandlerImpl} with the specified WebDriver.
-     *
-     * @param driver The WebDriver instance to be used for window handling.
-     */
-    public DriverHandlerImpl(final WebDriver driver){
+
+    private WindowInfoProviderImpl(final WebDriver driver){
         this.driver = driver;
+    }
+
+    public static WindowInfoProviderImpl getInstance(final WebDriver driver){
+        if(windowInfoProvider == null){
+            windowInfoProvider =  new WindowInfoProviderImpl(driver);
+        }
+
+        return windowInfoProvider;
     }
 
     /**

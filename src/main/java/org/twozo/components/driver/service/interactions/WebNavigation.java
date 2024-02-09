@@ -1,17 +1,22 @@
 package org.twozo.components.driver.service.interactions;
 
-import java.net.URL;
+import org.openqa.selenium.WebDriver;
+
+import org.twozo.components.driver.impl.WebNavigationImpl;
 
 /**
  * <p>
  * A contract defining methods for browser navigation.
- * <p><strong style="color: #0066cc;">Note:</strong> This method performs...</p>
  * </p>
  *
  * @author petchimuthu1520
  * @version 1.0
  */
 public interface WebNavigation {
+
+    static WebNavigation getInstance(final WebDriver.Navigation navigation) {
+        return WebNavigationImpl.getInstance(navigation);
+    }
 
     /**
      * <p>

@@ -7,7 +7,6 @@ public interface Interactions {
     void click();
 
     /**
-     *
      * Submits a form if the WebElement represents a form element.
      */
     void submit();

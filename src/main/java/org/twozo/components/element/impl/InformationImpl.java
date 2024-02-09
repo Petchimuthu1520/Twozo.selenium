@@ -1,8 +1,7 @@
 package org.twozo.components.element.impl;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebElement;
+
 import org.twozo.components.element.service.Information;
 
 /**
@@ -12,12 +11,7 @@ class InformationImpl implements Information {
 
     private final WebElement element;
 
-    /**
-     * Constructs a WebPageElementInformation instance with the specified WebElement.
-     *
-     * @param element The WebElement for which information is to be retrieved.
-     */
-    public InformationImpl(WebElement element) {
+    public InformationImpl(final WebElement element) {
         this.element = element;
     }
 
@@ -37,7 +31,7 @@ class InformationImpl implements Information {
      * @return The attribute value as a String.
      */
     @Override
-    public String getAttribute(String name) {
+    public String getAttribute(final String name) {
         return element.getAttribute(name);
     }
 

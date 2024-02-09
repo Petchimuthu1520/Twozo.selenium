@@ -2,22 +2,26 @@ package org.twozo.components.driver.impl;
 
 import org.openqa.selenium.WebDriver;
 
-import org.twozo.components.driver.service.interactions.WebWindow;
+import org.twozo.components.window.WebWindow;
 
 /**
  * Implementation of the WebWindow interface using Selenium WebDriver.
  */
-final class WebWindowImpl implements WebWindow {
+public class WebWindowImpl implements WebWindow {
 
+    private static WebWindowImpl webWindow;
     private final WebDriver.Window window;
 
-    /**
-     * Constructs a WebWindowImpl instance with the specified WebDriver.Window.
-     *
-     * @param window The WebDriver.Window instance to be used.
-     */
-    public WebWindowImpl(final WebDriver.Window window) {
+    private WebWindowImpl(final WebDriver.Window window) {
         this.window = window;
+    }
+
+    public static WebWindowImpl getInstance(final WebDriver.Window window) {
+        if (webWindow == null) {
+            webWindow = new WebWindowImpl(window);
+        }
+
+        return webWindow;
     }
 
     /**

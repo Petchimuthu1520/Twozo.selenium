@@ -1,7 +1,14 @@
 package org.twozo.components.driver.service;
 
-import org.twozo.components.driver.service.interactions.*;
+import org.openqa.selenium.WebDriver;
+
+import org.twozo.components.driver.impl.WebAutomationDriverImpl;
+import org.twozo.components.driver.service.interactions.WebNavigation;
+import org.twozo.components.driver.service.interactions.WebTargetLocator;
 import org.twozo.components.element.finders.ElementFinder;
+import org.twozo.components.page.PageInformationProvider;
+import org.twozo.components.window.WebWindow;
+import org.twozo.components.window.WindowInfoProvider;
 
 /**
  * <p>
@@ -9,10 +16,14 @@ import org.twozo.components.element.finders.ElementFinder;
  * Extends ElementFinder for element finding capabilities.
  * </p>
  *
- * @version 1.0
  * @author petchimuthu1520
+ * @version 1.0
  */
-public interface WebAutomationDriver extends ElementFinder {
+public interface WebAutomationDriver {
+
+    static WebAutomationDriver getInstance(final WebDriver driver) {
+        return WebAutomationDriverImpl.getInstance(driver);
+    }
 
     /**
      * <p>
@@ -35,7 +46,7 @@ public interface WebAutomationDriver extends ElementFinder {
      *
      * @return A handler for managing browser window handles.
      */
-    Handler handler();
+    WindowInfoProvider handler();
 
     /**
      * <p>
@@ -78,7 +89,7 @@ public interface WebAutomationDriver extends ElementFinder {
      * Provides information about the current state of the browser.
      * </p>
      *
-     * @return An Information instance for retrieving browser information.
+     * @return An PageInformationProvider instance for retrieving browser information.
      */
-    Information inform();
+    PageInformationProvider inform();
 }

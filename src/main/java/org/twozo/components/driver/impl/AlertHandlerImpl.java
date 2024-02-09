@@ -2,26 +2,29 @@ package org.twozo.components.driver.impl;
 
 import org.openqa.selenium.Alert;
 
-import org.twozo.components.driver.service.interactions.WebAlert;
+import org.twozo.components.driver.service.AlertHandler;
 
 /**
  * Implementation of the WebAlert interface using Selenium Alert.
  *
- * @version 1.0
  * @author petchimuthu1520
- *
+ * @version 1.0
  */
-final class WebAlertImpl implements WebAlert {
+public final class AlertHandlerImpl implements AlertHandler {
 
+    private static AlertHandlerImpl alertHandler;
     private final Alert alert;
 
-    /**
-     * Constructs a WebAlertImpl instance with the specified Selenium Alert.
-     *
-     * @param alert The Selenium Alert instance.
-     */
-    public WebAlertImpl(final Alert alert) {
+    private AlertHandlerImpl(final Alert alert) {
         this.alert = alert;
+    }
+
+    public static AlertHandlerImpl getInstance(final Alert alert) {
+        if (alertHandler == null) {
+            alertHandler = new AlertHandlerImpl(alert);
+        }
+
+        return alertHandler;
     }
 
     /**

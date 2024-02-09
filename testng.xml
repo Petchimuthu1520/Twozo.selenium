@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="All Test Suite">
-    <test verbose="2" preserve-order="true"
-          name="C:/Users/V Karthick/IdeaProjects/TestNG/src/test/java/org/twozo/page/SignIn.java">
+    <listeners>
+       <listener class-name="org.twozo.listeners.Listeners"></listener>
+    </listeners>
+    <test name="SampleTest">
         <classes>
-            <class name="org.twozo.page.SignIn">
+            <class name="org.twozo.page.SignInTest">
                 <methods>
-                    <include name="signInAsValidUser"/>
+                    <include name="signInAsValidUser"></include>
                 </methods>
             </class>
         </classes>
-    </test>
-    <test verbose="2" preserve-order="true"
-          name="C:/Users/V Karthick/IdeaProjects/TestNG/src/test/java/org/twozo/page_test/SignUpTest.java">
-        <classes/>
     </test>
 </suite>

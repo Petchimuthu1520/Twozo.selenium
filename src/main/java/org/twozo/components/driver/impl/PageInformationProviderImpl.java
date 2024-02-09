@@ -2,26 +2,29 @@ package org.twozo.components.driver.impl;
 
 import org.openqa.selenium.WebDriver;
 
-import org.twozo.components.driver.service.interactions.Information;
+import org.twozo.components.page.PageInformationProvider;
 
 /**
- * Implementation of the Information interface using Selenium WebDriver.
+ * Implementation of the PageInformationProvider interface using Selenium WebDriver.
  *
- * @version 1.0
  * @author petchimuthu1520
- *
+ * @version 1.0
  */
-final class DriverInformationImpl implements Information {
+public final class PageInformationProviderImpl implements PageInformationProvider {
 
+    private static PageInformationProviderImpl pageInformationProvider;
     private final WebDriver driver;
 
-    /**
-     * Constructs a DriverInformationImpl instance with the specified WebDriver.
-     *
-     * @param driver The WebDriver instance to be used.
-     */
-    public DriverInformationImpl(final WebDriver driver) {
+    private PageInformationProviderImpl(final WebDriver driver) {
         this.driver = driver;
+    }
+
+    public static PageInformationProviderImpl getInstance(final WebDriver driver) {
+        if (pageInformationProvider == null) {
+            pageInformationProvider = new PageInformationProviderImpl(driver);
+        }
+
+        return pageInformationProvider;
     }
 
     /**

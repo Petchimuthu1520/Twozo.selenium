@@ -5,7 +5,6 @@ import org.openqa.selenium.By;
 import org.twozo.components.driver.service.WebAutomationDriver;
 import org.twozo.components.element.service.WebPageElement;
 
-import java.lang.invoke.SwitchPoint;
 import java.util.Collection;
 
 /**
@@ -16,11 +15,6 @@ public final class ElementLocator {
     private static ElementLocator elementLocator;
     private final WebAutomationDriver webAutomationDriver;
 
-    /**
-     * Private constructor to enforce singleton pattern.
-     *
-     * @param webAutomationDriver The WebAutomationDriver instance to be used for element location.
-     */
     private ElementLocator(final WebAutomationDriver webAutomationDriver) {
         this.webAutomationDriver = webAutomationDriver;
     }
@@ -62,6 +56,7 @@ public final class ElementLocator {
         return webAutomationDriver.find().findElements(getByValue(locatorType,value));
     }
 
+    // converts LocatorType and value into a Selenium By object
     private By getByValue(final LocatorType locatorType, final String value){
 
         return switch (locatorType){

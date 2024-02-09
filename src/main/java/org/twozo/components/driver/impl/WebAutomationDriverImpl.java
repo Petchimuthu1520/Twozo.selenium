@@ -1,82 +1,86 @@
 package org.twozo.components.driver.impl;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
 import org.twozo.components.driver.service.WebAutomationDriver;
-import org.twozo.components.driver.service.interactions.Handler;
-import org.twozo.components.driver.service.interactions.Information;
 import org.twozo.components.driver.service.interactions.WebNavigation;
 import org.twozo.components.driver.service.interactions.WebTargetLocator;
-import org.twozo.components.driver.service.interactions.WebWindow;
-
 import org.twozo.components.element.finders.ElementFinder;
-import org.twozo.components.element.finders.ElementFinderForDriver;
-import org.twozo.components.element.impl.WebPageElementImpl;
-import org.twozo.components.element.service.WebPageElement;
-
-import java.util.ArrayList;
-import java.util.Collection;
+import org.twozo.components.page.PageInformationProvider;
+import org.twozo.components.window.WebWindow;
+import org.twozo.components.window.WindowInfoProvider;
 
 /**
  * Implementation of the WebAutomationDriver interface using Selenium WebDriver.
  *
- * @version 1.0
  * @author petchimuthu1520
- *
+ * @version 1.0
  */
 public final class WebAutomationDriverImpl implements WebAutomationDriver {
 
+    private static WebAutomationDriverImpl webAutomationDriver;
     private final WebDriver driver;
 
-    /**
-     * Constructs a WebAutomationDriverImpl instance with the specified WebDriver.
-     *
-     * @param driver The WebDriver instance to be used.
-     */
-    public WebAutomationDriverImpl(final WebDriver driver) {
+    private WebAutomationDriverImpl(final WebDriver driver) {
         this.driver = driver;
     }
 
+    public static WebAutomationDriverImpl getInstance(final WebDriver driver) {
+        if (webAutomationDriver == null) {
+            webAutomationDriver = new WebAutomationDriverImpl(driver);
+        }
+
+        return webAutomationDriver;
+    }
+
     /**
      * {@inheritDoc}
+     *
+     * @return A WebNavigation instance for browser navigation.
      */
     @Override
     public WebNavigation navigate() {
-        return new WebNavigationImpl(driver.navigate());
+        return WebNavigation.getInstance(driver.navigate());
     }
 
     /**
      * {@inheritDoc}
+     *
+     * @return An PageInformationProvider instance for retrieving browser information.
      */
     @Override
-    public Information inform() {
-        return new DriverInformationImpl(driver);
+    public PageInformationProvider inform() {
+        return PageInformationProvider.getInstance(driver);
     }
 
     /**
      * {@inheritDoc}
+     *
+     * @return An ElementFinder instance for locating web elements.
      */
     @Override
     public ElementFinder find() {
-        return new ElementFinderForDriver(driver);
+        return ElementFinder.getInstance(driver);
     }
 
     /**
      * {@inheritDoc}
+     *
+     * @return A WebTargetLocator for navigating to different contexts.
      */
     @Override
     public WebTargetLocator switchTo() {
-        return new WebTargetLocatorImpl(driver, driver.switchTo());
+        return WebTargetLocator.getInstance(driver, driver.switchTo());
     }
 
     /**
      * {@inheritDoc}
+     *
+     * @return A WebWindow instance for managing browser windows.
      */
     @Override
     public WebWindow window() {
-        return new WebWindowImpl(driver.manage().window());
+        return WebWindow.getInstance(driver.manage().window());
     }
 
     /**
@@ -97,38 +101,13 @@ public final class WebAutomationDriverImpl implements WebAutomationDriver {
 
     /**
      * {@inheritDoc}
-     */
-    @Override
-    public Handler handler() {
-        return new DriverHandlerImpl(driver);
-    }
-
-    /**
-     * {@inheritDoc}
      *
-     * @param by The locating mechanism for finding multiple elements.
-     * @return A collection of WebPageElement matching the specified By.
+     * @return A handler for managing browser window handles.
      */
     @Override
-    public Collection<WebPageElement> findElements(final By by) {
-        final Collection<WebElement> webElements = driver.findElements(by);
-        final Collection<WebPageElement> list = new ArrayList<>();
-
-        for (final WebElement element : webElements) {
-            list.add(new WebPageElementImpl(element));
-        }
-
-        return list;
+    public WindowInfoProvider handler() {
+        return WindowInfoProvider.getInstance(driver);
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * @param by The locating mechanism for finding the element.
-     * @return The first matching WebPageElement.
-     */
-    @Override
-    public WebPageElement findElement(final By by) {
-        return new WebPageElementImpl(driver.findElement(by));
-    }
+
 }

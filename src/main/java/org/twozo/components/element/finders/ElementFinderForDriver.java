@@ -2,52 +2,39 @@ package org.twozo.components.element.finders;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+
 import org.twozo.components.element.impl.WebPageElementImpl;
 import org.twozo.components.element.service.WebPageElement;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
 /**
- * Implementation of the {@link ElementFinder} interface specific to a WebDriver instance.
- * It provides methods to find multiple web page elements and a single web page element using the WebDriver.
+ * A concrete implementation of ElementFinder specifically for WebDriver.
  */
-public final class ElementFinderForDriver implements ElementFinder {
+public final class ElementFinderForDriver extends AbstractElementFinder {
 
     private final WebDriver driver;
 
-    /**
-     * Constructs an ElementFinderForDriver with the specified WebDriver.
-     *
-     * @param driver The WebDriver instance used for finding elements.
-     */
     public ElementFinderForDriver(final WebDriver driver) {
         this.driver = driver;
     }
 
     /**
-     * Finds multiple web page elements based on the specified {@code By} locator using the WebDriver.
+     * Finds multiple web page elements based on the specified By locator using the WebDriver instance.
      *
-     * @param by The {@code By} locator used to find elements.
-     * @return A collection of {@link WebPageElement} representing the found elements.
+     * @param by The By locator used to find elements.
+     * @return A collection of WebPageElement representing the found elements.
      */
+    @Override
     public Collection<WebPageElement> findElements(final By by) {
-        final Collection<WebElement> webElements = driver.findElements(by);
-        final Collection<WebPageElement> list = new ArrayList<>();
-
-        for (final WebElement element : webElements) {
-            list.add(new WebPageElementImpl(element));
-        }
-
-        return list;
+        return commonFindElements(driver.findElements(by));
     }
 
     /**
-     * Finds a single web page element based on the specified {@code By} locator using the WebDriver.
+     * Finds a single web page element based on the specified By locator using the WebDriver instance.
      *
-     * @param by The {@code By} locator used to find the element.
-     * @return The {@link WebPageElement} representing the found element.
+     * @param by The By locator used to find the element.
+     * @return The WebPageElement representing the found element.
      */
     @Override
     public WebPageElement findElement(final By by) {

@@ -4,9 +4,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
 
-import org.twozo.components.driver.impl.WebAutomationDriverImpl;
 import org.twozo.components.driver.service.WebAutomationDriver;
 
 /**
@@ -16,11 +16,9 @@ final class DriverFactory {
 
     private static DriverFactory driverFactory;
 
-    /**
-     * Gets the singleton instance of DriverFactory.
-     *
-     * @return The singleton instance of DriverFactory.
-     */
+    private DriverFactory() {
+    }
+
     public static DriverFactory getInstance() {
         if (driverFactory == null)
             driverFactory = new DriverFactory();
@@ -35,13 +33,23 @@ final class DriverFactory {
      * @return An instance of WebAutomationDriver.
      */
     public WebAutomationDriver build(final BrowserType browserType) {
+        return WebAutomationDriver.getInstance(getDriver(browserType));
+    }
 
+    /**
+     * Creates and returns a RemoteWebDriver instance based on the provided BrowserType.
+     *
+     * @param browserType The type of browser for which the driver is to be created.
+     * @return A RemoteWebDriver instance for the specified browser type.
+     */
+    private RemoteWebDriver getDriver(final BrowserType browserType) {
         return switch (browserType) {
-            case CHROME -> new WebAutomationDriverImpl(new ChromeDriver());
-            case EDGE -> new WebAutomationDriverImpl(new EdgeDriver());
-            case FIREFOX -> new WebAutomationDriverImpl(new FirefoxDriver());
-            case SAFARI -> new WebAutomationDriverImpl(new SafariDriver());
-            case INTERNET_EXPLORER -> new WebAutomationDriverImpl(new InternetExplorerDriver());
+            case CHROME -> new ChromeDriver();
+            case EDGE -> new EdgeDriver();
+            case FIREFOX -> new FirefoxDriver();
+            case SAFARI -> new SafariDriver();
+            case INTERNET_EXPLORER -> new InternetExplorerDriver();
         };
     }
+
 }

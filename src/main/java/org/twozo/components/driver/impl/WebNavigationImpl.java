@@ -7,21 +7,24 @@ import org.twozo.components.driver.service.interactions.WebNavigation;
 /**
  * Implementation of the WebNavigation interface using Selenium WebDriver Navigation.
  *
- * @version 1.0
  * @author petchimuthu1520
- *
+ * @version 1.0
  */
-final class WebNavigationImpl implements WebNavigation {
+public final class WebNavigationImpl implements WebNavigation {
 
+    private static WebNavigationImpl webNavigation;
     private final Navigation navigation;
 
-    /**
-     * Constructs a WebNavigationImpl instance with the specified WebDriver Navigation.
-     *
-     * @param navigation The WebDriver Navigation instance to be used.
-     */
-    public WebNavigationImpl(final Navigation navigation) {
+    private WebNavigationImpl(final Navigation navigation) {
         this.navigation = navigation;
+    }
+
+    public static WebNavigationImpl getInstance(final Navigation navigation) {
+        if (webNavigation == null) {
+            webNavigation = new WebNavigationImpl(navigation);
+        }
+
+        return webNavigation;
     }
 
     /**
